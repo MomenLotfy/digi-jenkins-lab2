@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/MomenLotfy/digi-jenkins-lab2.git', branch: 'master'
+                git url: 'https://github.com/MomenLotfy/digi-jenkins-lab2.git', branch: 'main'
             }
         }
 
