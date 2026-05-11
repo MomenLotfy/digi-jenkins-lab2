@@ -1,8 +1,10 @@
 pipeline {
-    agent { label 'node-agent' }
+    agent any
+    
     triggers {
         githubPush()
     }
+    
     stages {
         stage('Checkout') {
             steps {
@@ -10,21 +12,25 @@ pipeline {
             }
         }
 
-        
-
         stage('Run PHPUnit Tests') {
             steps {
-                sh 'phpunit tests/OrderTest.php tests/SubscriptionTest.php'
+                sh '''
+                    echo "PHPUnit version:"
+                    phpunit --version
+                    echo ""
+                    echo "Running tests..."
+                    phpunit tests/
+                '''
             }
         }
     }
 
     post {
         success {
-            echo 'All tests passed!'
+            echo '✅ All tests passed!'
         }
         failure {
-            echo 'Tests failed — build marked as FAILED.'
+            echo '❌ Tests failed — build marked as FAILED.'
         }
     }
 }
